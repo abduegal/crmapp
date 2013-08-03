@@ -1,0 +1,43 @@
+<div class="navbar navbar-fixed-top" ng-hide="navbar" ng-cloak>
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">{{company.name}}</a>
+      <ul class="nav">
+        <li ng-class="menu.Home">
+          <a href="/#/home"><i class="icon-home icon-white"></i>Home</a>
+        </li>
+        <li ng-class="menu.Settings">
+          <a href="/#/settings"><i class="icon-cog"></i>Settings</a>
+        </li>
+        <li ng-class="menu.Stock" class="dropdown" id="stock-menu">
+          <a href="#stock-menu" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-building"></i>Stock <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+                <a href="/#/stock/order/place">Place order</a>
+            </li>
+            <li>
+                <a href="/#/stock/order/view">View order</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#"><i class="icon-tag"></i>Service?</a>
+        </li>
+        <li>
+          <a href="#"><i class="icon-folder-close"></i>Payment?</a>
+        </li>
+        <li>
+          <a href="#"><i class="icon-file"></i>Expenditure?</a>
+        </li>
+        <li>
+          <a href="#"><i class="icon-file"></i>Report?</a>
+        </li>
+      </ul>
+      <ul class="nav pull-right">
+        <li><a href="" ng-click="logout()">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+
+<div class="span12 background">
+  <section ng-init="onInit('supplier', 'Settings')">
+    <h2>View supplier</h2>
+    <hr/>
+    
+    <label>Search Suppliers</label>
+    <input type="text" ng-model="search" class="input"/>
+    
+    <table class="table table-hover table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>email</th>
+            <th style="width:50px;"></th>
+            <th style="width:50px;"></th>
+        </tr>
+        <tr ng-repeat="supplier in collections  | filter:search | orderBy:'name'">
+            <td ng-bind-html-unsafe="supplier.name | highlight:search"></td>
+            <td ng-bind-html-unsafe="supplier.description | highlight:search"></td>
+            <td ng-bind-html-unsafe="supplier.email | highlight:search"></td>
+            <td><button class="btn btn-success" ng-click="edit(supplier._id, '/settings/supplier')">Edit</button></td>
+            <td><button class="btn btn-danger" ng-click="deleteA(supplier, 'supplier')">Delete</button></td>
+        </tr>
+    </table>
+      
+  </section>
+</div>

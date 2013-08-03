@@ -1,0 +1,30 @@
+
+<div class="span12 background">
+  <section ng-init="onInit('product', 'Settings')">
+    <h2>View product</h2>
+    <hr/>
+    
+    <label>Search Products</label>
+    <input type="text" ng-model="search" class="input"/>
+    
+    <table class="table table-hover table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Unit</th>
+            <th style="width:70px; text-align: right;">Quantity</th>
+            <th style="width:50px;"></th>
+            <th style="width:50px;"></th>
+        </tr>
+        <tr ng-repeat="product in collections  | filter:search | orderBy:'name'">
+            <td ng-bind-html-unsafe="product.name | highlight:search"></td>
+            <td ng-bind-html-unsafe="product.description | highlight:search"></td>
+            <td ng-bind-html-unsafe="product.unit + ' '+ product.unitName | highlight:search"></td>
+            <td><span class="pull-right">{{product.quantity}}</span></td>
+            <td><button class="btn btn-success" ng-click="edit(product._id, '/settings/product')">Edit</button></td>
+            <td><button class="btn btn-danger" ng-click="deleteA(product, 'product')">Delete</button></td>
+        </tr>
+    </table>
+      
+  </section>
+</div>

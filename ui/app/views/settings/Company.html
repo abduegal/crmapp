@@ -1,0 +1,24 @@
+
+<div class="span12 background">
+  <section ng-init="onInit('company', 'Settings')">
+    <h2>{{action}} company</h2>
+    <hr/>
+    
+    <form class="form-horizontal" ng-submit="onSave('company', '/settings')" novalidate>
+    
+      <div class="span6">
+        
+        <form-input label="Company name" form-id="name" target="company" required /></form-input>
+        <form-input label="Currency" form-id="currency" target="company" required /></form-input>
+        <form-input label="<b>What</b> does the company sell" form-id="product" target="company" required /></form-input>
+        <form-input label="To <b>Whom</b> does the company sell" form-id="client" target="company" required /></form-input>
+        
+        <form-input type="submit" fclass="btn btn-primary" disabled="{{buttonDisabled}}" target="company" label="" form-id="submit"/></form-input>
+        
+      </div>
+      
+      
+    </form>
+    
+  </section>
+</div>
