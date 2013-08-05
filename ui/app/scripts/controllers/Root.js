@@ -39,6 +39,13 @@ define([ 'angular', 'services/restangular'], function(angular) {
         });
         
         /**
+         * Starts the loading spinner
+         */
+        $scope.$on('event:loginRequired', function(event, value){
+          $location.path('/');
+        });
+
+        /**
          * On error
          */
         $scope.$on('event:errorOccurred', function(event, value){
