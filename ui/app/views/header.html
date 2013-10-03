@@ -1,8 +1,16 @@
-<div class="navbar navbar-fixed-top" ng-hide="navbar" ng-cloak>
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="#">{{company.name}}</a>
-      <ul class="nav">
+<div class="navbar navbar-default navbar-fixed-top" ng-hide="navbar" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">{{company.name}}</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav">
         <li ng-class="menu.Home">
           <a href="/#/home"><i class="icon-home icon-white"></i>Home</a>
         </li>
@@ -23,7 +31,7 @@
           </ul>
         </li>
         <li>
-          <a href="#"><i class="icon-tag"></i>Service?</a>
+          <a href="#"><i class="icon-tag"></i>Sales</a>
         </li>
         <li>
           <a href="#"><i class="icon-folder-close"></i>Payment?</a>
@@ -35,7 +43,7 @@
           <a href="#"><i class="icon-file"></i>Report?</a>
         </li>
       </ul>
-      <ul class="nav pull-right">
+      <ul class="nav navbar-nav navbar-right">
         <li><a href="" ng-click="logout()">Logout</a></li>
       </ul>
     </div>

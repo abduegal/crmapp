@@ -15,11 +15,14 @@ import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import uk.co.panaxiom.playjongo.PlayJongo;
 import utils.DeletableModel;
 import utils.Model;
+import utils.Secured;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
+@Security.Authenticated(Secured.class)
 public class GenericRestApi extends Controller{
 
 	private static HashMap<String, Class> collections = new HashMap<String, Class>();
@@ -38,7 +41,8 @@ public class GenericRestApi extends Controller{
 		return Arrays.binarySearch(new String[]{
 			"account",
 			"product",
-			"supplier"
+			"supplier",
+			"order"
 		}, collectionName) != -1;
 	}
 		

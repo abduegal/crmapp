@@ -2,6 +2,8 @@ package utils;
 
 import java.util.Date;
 
+import controllers.Application;
+
 import models.Login;
 import play.Logger;
 import play.mvc.Http.Context;
@@ -53,7 +55,7 @@ public class Secured extends Security.Authenticator {
 
 	public static void AllowOrigin(Context ctx){
 		System.out.println(ctx.request().getHeader("origin"));
-		ctx.response().setHeader("Access-Control-Allow-Origin", "http://localhost:8000");
+		ctx.response().setHeader("Access-Control-Allow-Origin", Application.allowedURLs);
 		ctx.response().setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
 		ctx.response().setHeader("Access-Control-Max-Age", "300");
 		ctx.response().setHeader("Access-Control-Allow-Credentials", "true");

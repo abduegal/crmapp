@@ -37,8 +37,6 @@ define([ 'angular', 'app', 'directives/FormComponent', 'directives/spinner',
         $httpProvider.defaults.transformRequest.push(ajaxSpinner);
         $httpProvider.defaults.withCredentials = true;
       })
-      .value('baseUrl', 'http://localhost:9000/')
-      .value('title', 'App name')    
       .config(function(RestangularProvider) {
         RestangularProvider.setBaseUrl("http://localhost:9000/");
         RestangularProvider.setDefaultHttpFields({withCredentials: true});

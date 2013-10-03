@@ -7,67 +7,102 @@
     <fieldset>
         <legend>Place order</legend>
         
-        <div class="row-fluid">
-            <div class="span4">
-              <label>Order # <span class="text-error"><strong> *</strong></span></label>
-              <input type="text" ng-model="order.orderId" value="{{orders.length}}"></input>
+        <div class="row">
+            <div class="col-md-4">
+              <form-input label="Order #" type="text" form-id="orderId" target="order" required></form-input>
             </div>
-            <div class="span4">  
+            <div class="col-md-4">  
               <form-input label="Date" type="date" form-id="date" target="order" required></form-input>
             </div>
-            <div class="span4" >
-              <label>Supplier <span class="text-error"><strong> *</strong></span></label>
-              <select ng-model="order.supplier._id">
-                <option ng-repeat="supplier in suppliers" value="{{supplier._id}}">{{supplier.name}}</option>
-              </select>
+            <div class="col-md-4" >
+              <div class="form-group" ng-class="{error: errors.supplier}">
+                <label class="control-label">Supplier <span class="text-danger"><strong> *</strong></span></label>
+                <select ng-model="order.supplier._id" class="form-control">
+                  <option ng-repeat="supplier in suppliers" value="{{supplier._id}}">{{supplier.name}}</option>
+                </select>
+                <span class="help-inline">{{errors.supplier.0}}</span>
+              </div>
             </div>
         </div>
-        <table class="table">
-            <tr>
-                <th style="width:50px;">#</th>
-                <th>Product</th>
-                <th style="width:85px;">Quantity</th>
-                <th style="width:115px;">Price per unit</th>
-                <th style="width:75px; text-align: right;">Price</th>
-                <th style="width:50px;"></th>
-            </tr>
-            <tr>
-                <td><input type="text" readonly ng-model="stock.order" class="input-mini"/></td>
-                <td><input type="text" ng-model="stock.product" list="products" class="span11" autocomplete="on"/></td>
-                <td><input type="number" ng-model="stock.quantity" class="input-mini" min="1"/></td>
-                <td><input type="number" ng-model="stock.priceperunit" class="input-small" step="0.01" /></td>
-                <td><span class="pull-right">{{price(stock) | currency:company.currency }}</span></td>
-                <td><input type="button" class="btn btn-success" value="Add" ng-click="addToStock()"/></td>
-            </tr>
-            <tr ng-repeat="stock in order.items" class="" ng-class="{'success': stock.mouseOver || stock.received}">
-                <td>{{stock.order}}</td>
-                <td>{{stock.product}}</td>
-                <td>{{stock.quantity}}</td>
-                <td><span class="pull-right">{{stock.priceperunit | currency:company.currency }}</span></td>
-                <td><span class="pull-right">{{price(stock) | currency:company.currency }}</span></td>
-                <td>
-                    <i ng-hide="stock.received" class="icon-ok lead" style="cursor: pointer;" ng-click="mouseClicked(stock)" 
-                       ng-class="{'text-success' : stock.mouseOver || stock.received, 'muted': !stock.mouseOver}" 
-                       ng-mouseover="mouseOver(stock)" ng-mouseleave="mouseExit(stock)"></i>
-                    <i ng-hide="!stock.received" class="icon-minus lead" style="cursor:pointer;" ng-click="mouseClickedRemove(stock)" 
-                       ng-mouseover="mouseOver(stock)" ng-mouseleave="mouseExit(stock)"
-                       ng-class="{'text-error' : stock.mouseOver, 'muted': !stock.mouseOver}" ></i>     
-                    <i class="icon-remove lead pull-right" style="height:4px; cursor: pointer;" ng-click="deleteStock(stock)"></i>  
-                </td>
-            </tr>
-            <tr>
-                <th colspan="4">Total price</th>
-                <th><span class="pull-right">{{totalPriceAll() | currency:company.currency }}</span></th>
-                <th></th>
-            </tr>
-        </table>
+         
+        <hr/>
+                
+        <div class="row">
+          <div class="col-sm-1">
+            <label class="control-label">#</label>
+            <input type="text" readonly ng-model="stock.order" class="form-control"/>
+          </div>
+          <div class="col-sm-3">
+            <label class="control-label">Product</label>
+            <select ng-model="stock.productId" class="form-control">
+               <option ng-repeat="product in products | orderBy:'name'" value="{{product._id}}">{{product.name}} - ({{product.unit}} {{product.unitName}})</option>
+            </select>
+            <p class="text-danger">{{errors.product}}</p>
+          </div>
+          <div class="col-sm-3">
+            <label class="control-label">Expiration date</label>
+            <input type="date" ng-model="stock.expirationDate" class="form-control"/>
+            <p class="text-danger">{{errors.expirationDate}}</p>
+          </div>
+          <div class="col-sm-1">
+            <label class="control-label">Quantity</label>
+            <input type="number" ng-model="stock.quantity" class="form-control" min="1"/>
+          </div>
+          <div class="col-sm-2">
+            <label class="control-label">Price per unit</label>
+            <input type="number" ng-model="stock.priceperunit" class="form-control" step="0.01" />
+            <p class="text-danger">{{errors.priceperunit}}</p>
+          </div>
+          <div class="col-sm-1">
+            <label class="control-label">Price</label>
+            {{price(stock) | currency:company.currency }}
+          </div>
+          <div class="col-sm-1">
+            <label class="control-label">Add</label>
+            <input type="button" class="btn btn-success btn-sm" value="Add" ng-click="addToStock()"/>
+          </div>   
+        </div>
+        
+        <hr/>
+        <h3>Order form</h3>
+        <div class="row bordered hidden-xs">
+          <div class="col-sm-1 header"><label>#</label></div>
+          <div class="col-sm-3 header"><label>Product</label></div>
+          <div class="col-sm-3 header"><label>Expiration date</label></div>
+          <div class="col-sm-1 header"><label>Quantity</label></div>
+          <div class="col-sm-2 header"><label>Price per unit</label></div>
+          <div class="col-sm-1 header"><label>Price</label></div>
+          <div class="col-sm-1 header"><label>Edit</label></div>
+        </div>
+        <div class="row bordered" ng-repeat="stock in order.items" ng-class="{'success': stock.mouseOver || stock.received}">
+          <div class="col-sm-1"><span class="visible-xs">#</span><label>{{stock.order}}</label></div>
+          <div class="col-sm-3"><span class="visible-xs">Product</span><label>{{productName(stock)}}</label></div>
+          <div class="col-sm-3"><span class="visible-xs">Expiration Date</span><label>{{stock.expirationDate}}</label></div>
+          <div class="col-sm-1"><span class="visible-xs">Quantity</span><label>{{stock.quantity}}</label></div>
+          <div class="col-sm-2"><span class="visible-xs">Price per unit</span><label>{{stock.priceperunit | currency:company.currency }}</label></div>
+          <div class="col-sm-1"><span class="visible-xs">Price</span><label>{{price(stock) | currency:company.currency }}</label></div>
+          <div class="col-sm-1">
+            <i ng-hide="stock.received" class="icon-ok lead" style="cursor: pointer;" ng-click="mouseClicked(stock)" 
+                   ng-class="{'text-success' : stock.mouseOver || stock.received, 'muted': !stock.mouseOver}" 
+                   ng-mouseover="mouseOver(stock)" ng-mouseleave="mouseExit(stock)"></i>
+                <i ng-hide="!stock.received" class="icon-minus lead" style="cursor:pointer;" ng-click="mouseClickedRemove(stock)" 
+                   ng-mouseover="mouseOver(stock)" ng-mouseleave="mouseExit(stock)"
+                   ng-class="{'text-danger' : stock.mouseOver, 'muted': !stock.mouseOver}" ></i>     
+                <i class="icon-remove lead pull-right" style="height:4px; cursor: pointer;" ng-click="deleteStock(stock)"></i>  
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-sm-8"><label>Total Price</label></div>
+          <div class="col-sm-2"><label>{{totalPriceAll() | currency:company.currency }}</label></div>
+        </div>
         
         <button class="btn btn-primary" ng-click="sendOrder()">Send order</button>
         <br/>
         <br/><label ng-show="order.supplier"> An email will be send to <b>{{order.supplier.email}}</b></label>
         
         <datalist id="products">
-            <option ng-repeat="product in products | orderBy:'name'" value="{{product.name}} - ({{product.unit}} {{product.unitName}})">
+           
         </datalist>
     </fieldset>
   </section>

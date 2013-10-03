@@ -2,6 +2,8 @@ package models;
 
 import java.math.BigDecimal;
 
+import play.data.validation.Constraints.Required;
+
 public class Stock{
 
 	public Stock() {
@@ -9,7 +11,8 @@ public class Stock{
 	
 	private long order;
 	private long quantity;
-	private String product;
+	private String productId;
+	private String expirationDate;
 	private BigDecimal priceperunit;
 	private boolean received;
 	
@@ -25,11 +28,17 @@ public class Stock{
 	public void setQuantity(long quantity) {
 		this.quantity = quantity;
 	}
-	public String getProduct() {
-		return product;
+	public String getProductId() {
+		return productId;
 	}
-	public void setProduct(String product) {
-		this.product = product;
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
+	public String getExpirationDate() {
+		return expirationDate;
+	}
+	public void setExpirationDate(String expirationDate) {
+		this.expirationDate = expirationDate;
 	}
 	public BigDecimal getPriceperunit() {
 		return priceperunit;

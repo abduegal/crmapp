@@ -1,0 +1,66 @@
+
+body {
+    padding-top: 50px;
+}
+
+form{
+    margin: 10px 0;
+    padding: 0 15px;
+    
+    .control-label{
+        padding-top: 0 !important;
+    }
+}
+
+input[type='submit']{
+	&.default-width{
+	   margin: 0 -15px;
+	   width: 250px;
+	}
+}
+
+table{
+	thead{
+	   background-color: #428bca;
+	   color: #fff;
+	}
+	td{
+	   vertical-align: middle;
+	}
+}
+
+.row{
+	&.bordered{
+	  .col-sm-1,
+	  .col-sm-2,
+	  .col-sm-3,
+	  .col-sm-4,
+	  .col-sm-5,
+	  .col-sm-6,
+	  .col-sm-7,
+	  .col-sm-8,
+	  .col-sm-9,
+	  .col-sm-10,
+	  .col-sm-11 {
+	    border: 1px dashed #ddd;
+	    padding-top: 3px;
+	    
+	    &.header{
+	       border: 1px solid #ddd;
+	    }
+      }
+      margin-bottom: 2px;
+	}
+}
+
+.error{
+    color: #a80000;
+}
+
+.success{
+    color: #37a800;
+}
+
+.form-horizontal .control-label {
+    text-align: left !important;
+}

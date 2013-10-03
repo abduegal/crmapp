@@ -39,7 +39,7 @@ define([ 'angular', 'services/restangular'], function(angular) {
         });
         
         /**
-         * Starts the loading spinner
+         * Returns to the login page
          */
         $scope.$on('event:loginRequired', function(event, value){
           $location.path('/');

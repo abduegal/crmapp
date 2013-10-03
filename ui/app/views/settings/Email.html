@@ -1,24 +1,22 @@
 
-<div class="span12 background">
+<div class="">
   <section ng-init="onInit('email', 'Settings')">
     <h2>{{action}} Email Settings</h2>
     <hr/>
     
     <form class="form-horizontal" ng-submit="onSave('email', '/settings')" novalidate>
     
-      <div class="span12">
+      <div class="col-md-9">
         
         <form-input label="Titel" form-id="title" target="email" required /></form-input>
-        <div class="control-group ng-scope" ng-class="{error: errors.body}" ng-controller="EmailCtrl">
+        <div class="form-group" ng-class="{error: errors.body}" ng-controller="EmailCtrl">
             <label class="control-label" for="body">Message body<span class="text-error"><strong> *</strong></span></label>
-            <div class="controls">
-                <div style="display:inline-block;" class="btn btn-warning span3 pull-right" ng-click="addLink()">Add link</div>
-                <textarea ng-model="email.body" ng-disabled="undefined" class="input span9" rows="4" id="body" name="body" required="required"></textarea>
-                <span class="help-inline"></span>
-            </div>
+            <div style="display:inline-block;" class="btn btn-warning span3 pull-right" ng-click="addLink()">Add link</div>
+            <textarea ng-model="email.body" ng-disabled="undefined" class="form-control" rows="4" id="body" name="body" required="required"></textarea>
+            <span class="help-inline"></span>
         </div>
         
-        <form-input type="submit" fclass="btn btn-primary" disabled="{{buttonDisabled}}" target="email" label="" form-id="submit"/></form-input>
+        <input type="submit" class="btn btn-primary default-width" />
       </div>
       
       

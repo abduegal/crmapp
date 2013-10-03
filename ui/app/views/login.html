@@ -1,33 +1,17 @@
-<link rel="stylesheet" type="text/css" href="styles/login.css" ng-cloak>
-<div class="content">
-<div class="row">
-<div class="login-form" ng-init="authCheck()">
-	<form name="loginForm" class="form-horizontal" ng-submit="onLogin()" novalidate>
-	  <fieldset>
-      	<legend>Login</legend>
-      	<div class="alert alert-error" ng-show="error">{{error}}</div>
-		<div class="control-group">
-		    <label class="control-label" for="username">Username</label>
-			<div class="controls">
-				<input type="text" class="input span12" name="username" placeholder="username" required
-			 		   ng-model="login.username">
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="password">Password</label>
-			<div class="controls">
-				<input type="password" class="input span12" name="password" placeholder="password" required
-					   ng-model="login.password">
-			</div>
-		</div>
-		<div class="control-group">
-		    <div class="controls">
-		    	<label class="checkbox"> <input type="checkbox" ng-model="login.remember"> Remember me </label>
-		        <input type="submit" class="btn btn-primary" name="submit" value="Sign in" ng-disabled="loginForm.$invalid">
-		    </div>
-	  	</div>
-	  </fieldset>	 
-	</form>
-</div>
-</div>
+<div class="content login">
+  <div class="row">
+    <div class="login-area col-md-4 col-md-offset-4" ng-init="authCheck()">
+      <fieldset>
+        <legend>Login</legend>
+        <form name="loginForm" class="form-horizontal" role="form" ng-submit="onLogin()" novalidate>
+          <div class="alert alert-error" ng-show="error">{{error}}</div>
+          <form-input label="Username" form-id="username" target="login"></form-input>
+          <form-input type="password" label="Password" form-id="password" target="login"></form-input>
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-block" />
+          </div>
+        </form>
+      </fieldset>
+    </div>
+  </div>
 </div>

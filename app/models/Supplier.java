@@ -16,6 +16,8 @@ public class Supplier implements Model, DeletableModel{
 	private String name;
 	private String description;
 	@Required
+	private String telephone;
+	@Required
 	@Email
 	private String email;
 	
@@ -64,6 +66,14 @@ public class Supplier implements Model, DeletableModel{
 	
 	public String getEmail() {
 		return email;
+	}
+	
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+	
+	public String getTelephone() {
+		return telephone;
 	}
 	
 }

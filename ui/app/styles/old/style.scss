@@ -42,3 +42,7 @@ html, body{
     filter:alpha(opacity=70);
     cursor: progress;
 }
+
+.tab-pane{
+	overflow: hidden;
+}

@@ -10,9 +10,10 @@ import com.github.kevinsawicki.http.HttpRequest;
 import play.data.format.Formats.DateTime;
 import play.libs.Json;
 import uk.co.panaxiom.playjongo.PlayJongo;
+import utils.DeletableModel;
 import utils.Model;
 
-public class Order implements Model{
+public class Order implements Model, DeletableModel{
 
 	public static String collectionName = "order";
 	
@@ -29,6 +30,8 @@ public class Order implements Model{
 	@DateTime(pattern="YYYY-MM-DD")
 	private String date;
 	
+	private boolean finished = false;
+	
 	public Order() {
 	}
 	
@@ -41,6 +44,12 @@ public class Order implements Model{
 	@Override
 	public void update() {
     	PlayJongo.getCollection(collectionName).save(this);
+	}
+	
+	@Override
+	public void delete() {
+    	String query = String.format("{_id: '%s'}", _id);
+    	PlayJongo.getCollection(collectionName).remove(query);  
 	}
 	
 	private void sendEmail(){
@@ -111,5 +120,15 @@ public class Order implements Model{
 	public String getEmail() {
 		return email;
 	}
+	
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+	
+	public boolean getFinished(){
+		return finished;
+	}
+	
+
 
 }

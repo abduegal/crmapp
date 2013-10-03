@@ -29,9 +29,9 @@ module.exports = function (grunt) {
         files: ['test/spec/{,*/}*.coffee'],
         tasks: ['coffee:test']
       },
-      compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass']
+      less: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
+        tasks: ['less:development']
       },
       livereload: {
         files: [
@@ -124,20 +124,24 @@ module.exports = function (grunt) {
         }]
       }
     },
-    compass: {
-      options: {
-        sassDir: '<%= yeoman.app %>/styles',
-        cssDir: '.tmp/styles',
-        imagesDir: '<%= yeoman.app %>/images',
-        javascriptsDir: '<%= yeoman.app %>/scripts',
-        fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: '<%= yeoman.app %>/components',
-        relativeAssets: true
-      },
-      dist: {},
-      server: {
+    less: {
+      development: {
         options: {
-          debugInfo: true
+          paths: ['<%= yeoman.app %>/components']
+        },
+        files: {
+          ".tmp/styles/style.css": "<%= yeoman.app %>/styles/bootstrap/bootstrap.less",
+          ".tmp/styles/main.css": "<%= yeoman.app %>/styles/main.less"
+        }
+      },
+      production: {
+        options: {
+          paths: ['<%= yeoman.app %>/components'],
+          yuicompress: true
+        },
+        files: {
+          ".tmp/styles/style.css": "<%= yeoman.app %>/styles/bootstrap/bootstrap.less",
+          ".tmp/styles/main.css": "<%= yeoman.app %>/styles/main.less"
         }
       }
     },
@@ -265,7 +269,7 @@ module.exports = function (grunt) {
   grunt.registerTask('server', [
     'clean:server',
     'coffee:dist',
-    'compass:server',
+    'less:development',
     'livereload-start',
     'connect:livereload',
     'open',
@@ -275,7 +279,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'coffee',
-    'compass',
+    //'compass',
     'connect:test',
     'karma'
   ]);
@@ -285,7 +289,7 @@ module.exports = function (grunt) {
     'jshint',
     'test',
     'coffee',
-    'compass:dist',
+    //'compass:dist',
     'useminPrepare',
     'imagemin',
     'cssmin',

@@ -1,19 +1,19 @@
 
-<div class="span12 background">
+<div>
   <section ng-init="onInit('product', 'Settings')">
     <h2>{{action}} product</h2>
     <hr/>
     
     <form class="form-horizontal" ng-submit="onSave('product', '/settings')" novalidate>
     
-      <div class="span6">
+      <div class="col-md-5">
       
         <form-input label="Name" form-id="name" target="product" required/></form-input>
         <form-input label="Description" form-id="description" target="product" /></form-input>
         <form-input label="Unit" type="number" form-id="unit" fclass="input-mini" target="product" required/></form-input>
         <form-input label="Unit type <br/><i class='muted'>(liters, kg, m3)</i>" form-id="unitName" fclass="input-small" target="product" required/></form-input>
         
-        <form-input type="submit" fclass="btn btn-primary" disabled="{{buttonDisabled}}" target="product" label="" form-id="submit"/></form-input>
+        <input type="submit" class="btn btn-primary default-width"/>  
         
       </div>
       

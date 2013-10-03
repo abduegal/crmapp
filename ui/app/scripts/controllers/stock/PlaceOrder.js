@@ -47,6 +47,7 @@ define([ 'angular'], function(angular) {
         };
         
         $scope.sendOrder = function(){
+          $scope.validate();
           $scope.order.supplierId = $scope.order.supplier._id;
           $scope.order.email = $scope.order.supplier.email;
           Restangular.all('order').post($scope.order).then(function(){
@@ -61,6 +62,9 @@ define([ 'angular'], function(angular) {
          * Green add button pressed
          */
         $scope.addToStock = function(){
+          if(!$scope.validateAddStock()){
+            return;
+          }
           $scope.order.items.push($scope.stock);
           $scope.stock = {
               quantity : 1
@@ -91,6 +95,16 @@ define([ 'angular'], function(angular) {
         }; 
         
         /**
+         * Find the product name + unit and unitName
+         */
+        $scope.productName = function(stock){
+          var product = _.find($scope.products, function(product) {
+            return (product._id == stock.productId);
+          });
+          return product.name + ' - ('+ product.unit + ' ' + product.unitName + ')';
+        };
+        
+        /**
          * Generated the order ID
          */
         $scope.generateOrderId = function(){
@@ -118,7 +132,48 @@ define([ 'angular'], function(angular) {
           }
           return totalPrice;
         };
+        
+        /**
+         * Validates the form
+         */
+        $scope.validate = function(){
+          $scope.errors = {
+              order: {}
+          };
+          var errorMessage = ['Empty field not allowed'];
+          if($scope.order.orderId == undefined){
+            $scope.errors.orderId = errorMessage;
+          }
+          if($scope.order.date == undefined){
+            $scope.errors.date = errorMessage;
+          }
+          if($scope.supplier == undefined){
+            $scope.errors.supplier = errorMessage;
+          }
+        };
 
+        /**
+         * Validates the ajax event for adding stocks
+         */
+        $scope.validateAddStock = function(){
+          $scope.errors = {};
+          var errorMessage = 'Empty field not allowed';
+          
+          if($scope.stock.productId == undefined){
+            $scope.errors.product = errorMessage;
+            return false;
+          }
+          if($scope.stock.expirationDate == undefined){
+            $scope.errors.expirationDate = errorMessage;
+            return false;
+          }
+          if($scope.stock.priceperunit == undefined){
+            $scope.errors.priceperunit = errorMessage;
+            return false;
+          }
+          return true;
+        };
+        
         /*
          * REST CALLS
          */

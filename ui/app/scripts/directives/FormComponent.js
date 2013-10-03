@@ -13,13 +13,11 @@ define([ 'angular'], function(angular) {
               if(required){
                 label += '<span class="text-error"><strong> *</strong></span>';
               }
-              var htmlText = '<div class="control-group" ng-class="{error: errors.'+attrs.formId+'}">' +
+              var htmlText = '<div class="form-group" ng-class="{error: errors.'+attrs.formId+'}">' +
                   '<label class="control-label" for="' + attrs.formId + '">' + label + '</label>' +
-                      '<div class="controls">' +
-                      '<input type="' + type + '" ng-model="'+attrs.target+'.'+attrs.formId+'" ng-disabled="'+attrs.disabled+'" '+
-                             'class="input '+attrs.fclass+'" id="' + attrs.formId + '" name="' + attrs.formId + '" ' + required + '>' +
-                      '<span class="help-inline">{{errors.'+attrs.formId+'.0}}</span>' +
-                      '</div>' +
+                    '<input type="' + type + '" ng-model="'+attrs.target+'.'+attrs.formId+'" ng-disabled="'+attrs.disabled+'" '+
+                           'class="form-control '+attrs.fclass+'" id="' + attrs.formId + '" name="' + attrs.formId + '" ' + required + '>' +
+                    '<span class="help-inline">{{errors.'+attrs.formId+'.0}}</span>' +
                   '</div>',
               newEl = $compile(htmlText)(scope)[0];
 

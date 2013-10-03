@@ -1,12 +1,12 @@
 
-<div class="span12 background">
+<div>
   <section ng-init="onInit('account', 'Settings')">
     <h2>{{action}} account</h2>
     <hr/>
     
     <form class="form-horizontal" ng-submit="onSave('account', '/settings')" novalidate>
       <div>
-        <div class="span6">
+        <div class="col-md-5">
         
           <form-input label="First name" form-id="firstname" target="account" required/></form-input>
           <form-input label="Middle name" form-id="middlename" target="account" /></form-input>
@@ -18,15 +18,17 @@
     
           <form-input label="City" form-id="city" target="account" /></form-input>
           <form-input label="Country" form-id="country" target="account"/></form-input>
-          
-          <form-input type="submit" fclass="btn btn-primary" disabled="{{buttonDisabled}}" target="account" label="" form-id="submit"/></form-input>
-          
+        
+          <input type="submit" class="btn btn-primary default-width"/>  
+        
         </div>
         
-        <div class="span6">
+        <div class="col-md-5 col-md-offset-1">
           <form-input label="username" form-id="username" ng-hide="hide" target="account" required /></form-input>
           <form-input type="password" label="password" ng-hide="hide" form-id="password" target="account" required/></form-input>
         </div>
+
+
       </div>
     </form>
     

@@ -1,12 +1,11 @@
-
 <div class="span12 background">
   <section>
     <h2>{{title}}</h2>
     <hr/>
     
     <ul class="nav nav-tabs">
-      <li><a href="#ongoing-orders" data-toggle="tab">Ongoing orders</a></li>
-      <li><a href="#completed-orders" data-toggle="tab">Completed orders</a></li>
+      <li><a href="#ongoing-orders" data-toggle="tab" ng-click="unactivateTabPane()">Ongoing orders</a></li>
+      <li><a href="#completed-orders" data-toggle="tab" ng-click="unactivateTabPane()">Completed orders</a></li>
     </ul>
     <div class="tab-content">
       <ul class="nav nav-tabs tab-pane" id="ongoing-orders">
@@ -31,33 +30,33 @@
                 <th style="width:85px;">Quantity</th>
                 <th style="width:115px;">Price per unit</th>
                 <th style="width:75px; text-align: right;">Price</th>
-                <th style="width:50px;"></th>
+                <th style="width:50px;" ng-show="!order.finished"></th>
             </tr>
             <tr ng-repeat="stock in order.items" class="" ng-class="{'success': stock.mouseOver || stock.received}">
                 <td>{{stock.order}}</td>
-                <td>{{stock.product}}</td>
+                <td>{{getProduct(stock.productId).name}} ({{getProduct(stock.productId).unit}} {{getProduct(stock.productId).unitName}})</td>
                 <td>{{stock.quantity}}</td>
                 <td><span class="pull-right">{{stock.priceperunit | currency:company.currency }}</span></td>
                 <td><span class="pull-right">{{price(stock) | currency:company.currency }}</span></td>
-                <td>
+                <td ng-show="!order.finished">
                     <i ng-hide="stock.received" class="icon-ok lead" style="cursor: pointer;" ng-click="mouseClicked(stock)" 
                        ng-class="{'text-success' : stock.mouseOver || stock.received, 'muted': !stock.mouseOver}" 
                        ng-mouseover="mouseOver(stock)" ng-mouseleave="mouseExit(stock)"></i>
                     <i ng-hide="!stock.received" class="icon-minus lead" style="cursor:pointer;" ng-click="mouseClickedRemove(stock)" 
                        ng-mouseover="mouseOver(stock)" ng-mouseleave="mouseExit(stock)"
                        ng-class="{'text-error' : stock.mouseOver, 'muted': !stock.mouseOver}" ></i>     
-                    <i class="icon-remove lead pull-right" style="height:4px; cursor: pointer;" ng-click="deleteStock(stock)"></i>  
+                    <i class="icon-remove lead pull-right" style="height:4px; cursor: pointer;" ng-click="deleteStock(stock)"></i>
                 </td>
             </tr>
             <tr>
                 <th colspan="4">Total price</th>
                 <th><span class="pull-right">{{totalPriceAll(order) | currency:company.currency }}</span></th>
-                <th></th>
+                <th ng-show="!order.finished"><button class="btn btn-warning btn-small" ng-hide="isAllItemsReceived(order)" ng-click="setAllItemsToReceived(order)">Mark all</button></th>
             </tr>
         </table>
         <hr/>
-        <button class="btn btn-danger">Not received (Delete)</button>
-        <button class="btn btn-success pull-right" ng-click="finishOrder(order)">Finish</button>
+        <button class="btn btn-danger" ng-click="remove(order)" ng-show="!order.finished">Not received (Delete)</button>
+        <button class="btn btn-success pull-right" ng-click="finishOrder(order)" ng-show="!order.finished">Finish</button>
       </div>
     </div>
             
