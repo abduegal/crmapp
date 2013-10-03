@@ -14,7 +14,6 @@ define(['app', 'config', 'angular'], function(App, config, angular) {
       location = $location;
       Restangular = _Restangular_;
       $httpBackend = _$httpBackend_;
-      $httpBackend = _$httpBackend_;
       $httpBackend.expectGET('http://localhost:9000/company/1').respond(400);
       $httpBackend.expectGET('http://localhost:9000/email/1').respond(400);
       RootCtrl = $controller('RootCtrl', {

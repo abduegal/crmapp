@@ -139,6 +139,7 @@ define([ 'angular'], function(angular) {
         
         $scope.unactivateTabPane = function(){
           $('.tab-pane').removeClass('active');
+          $('.nav-tabs li').removeClass('active');
         };
         
         /*

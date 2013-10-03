@@ -92,9 +92,9 @@
           </div>
         </div>
         
-        <div class="row">
+        <div class="row totalbordered">
           <div class="col-sm-8"><label>Total Price</label></div>
-          <div class="col-sm-2"><label>{{totalPriceAll() | currency:company.currency }}</label></div>
+          <div class="col-sm-4"><label>{{totalPriceAll() | currency:company.currency }}</label></div>
         </div>
         
         <button class="btn btn-primary" ng-click="sendOrder()">Send order</button>

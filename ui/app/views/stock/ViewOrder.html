@@ -23,37 +23,37 @@
         <label>Order date: <strong>{{order.date}}</strong></label>
         <label>Supplier name: <strong>{{order.supplier.name}}</strong></label>
       
-        <table class="table">
-            <tr>
-                <th style="width:50px;">#</th>
-                <th>Product</th>
-                <th style="width:85px;">Quantity</th>
-                <th style="width:115px;">Price per unit</th>
-                <th style="width:75px; text-align: right;">Price</th>
-                <th style="width:50px;" ng-show="!order.finished"></th>
-            </tr>
-            <tr ng-repeat="stock in order.items" class="" ng-class="{'success': stock.mouseOver || stock.received}">
-                <td>{{stock.order}}</td>
-                <td>{{getProduct(stock.productId).name}} ({{getProduct(stock.productId).unit}} {{getProduct(stock.productId).unitName}})</td>
-                <td>{{stock.quantity}}</td>
-                <td><span class="pull-right">{{stock.priceperunit | currency:company.currency }}</span></td>
-                <td><span class="pull-right">{{price(stock) | currency:company.currency }}</span></td>
-                <td ng-show="!order.finished">
-                    <i ng-hide="stock.received" class="icon-ok lead" style="cursor: pointer;" ng-click="mouseClicked(stock)" 
-                       ng-class="{'text-success' : stock.mouseOver || stock.received, 'muted': !stock.mouseOver}" 
-                       ng-mouseover="mouseOver(stock)" ng-mouseleave="mouseExit(stock)"></i>
-                    <i ng-hide="!stock.received" class="icon-minus lead" style="cursor:pointer;" ng-click="mouseClickedRemove(stock)" 
-                       ng-mouseover="mouseOver(stock)" ng-mouseleave="mouseExit(stock)"
-                       ng-class="{'text-error' : stock.mouseOver, 'muted': !stock.mouseOver}" ></i>     
-                    <i class="icon-remove lead pull-right" style="height:4px; cursor: pointer;" ng-click="deleteStock(stock)"></i>
-                </td>
-            </tr>
-            <tr>
-                <th colspan="4">Total price</th>
-                <th><span class="pull-right">{{totalPriceAll(order) | currency:company.currency }}</span></th>
-                <th ng-show="!order.finished"><button class="btn btn-warning btn-small" ng-hide="isAllItemsReceived(order)" ng-click="setAllItemsToReceived(order)">Mark all</button></th>
-            </tr>
-        </table>
+        <div class="row bordered hidden-xs">
+          <div class="col-sm-1 header"><label>#</label></div>
+          <div class="col-sm-3 header"><label>Product</label></div>
+          <div class="col-sm-3 header"><label>Expiration date</label></div>
+          <div class="col-sm-1 header"><label>Quantity</label></div>
+          <div class="col-sm-2 header"><label>Price per unit</label></div>
+          <div class="col-sm-1 header" ng-class="{'col-sm-2': order.finished}"><label>Price</label></div>
+          <div class="col-sm-1 header" ng-show="!order.finished"><label>Edit</label></div>
+        </div>
+        <div class="row bordered" ng-repeat="stock in order.items" ng-class="{'success': stock.mouseOver || stock.received}">
+          <div class="col-sm-1"><span class="visible-xs">#</span><label>{{stock.order}}</label></div>
+          <div class="col-sm-3"><span class="visible-xs">Product</span><label>{{getProduct(stock.productId).name}} ({{getProduct(stock.productId).unit}} {{getProduct(stock.productId).unitName}})</label></div>
+          <div class="col-sm-3"><span class="visible-xs">Expiration Date</span><label>{{stock.expirationDate}}</label></div>
+          <div class="col-sm-1"><span class="visible-xs">Quantity</span><label>{{stock.quantity}}</label></div>
+          <div class="col-sm-2"><span class="visible-xs">Price per unit</span><label>{{stock.priceperunit | currency:company.currency }}</label></div>
+          <div class="col-sm-1" ng-class="{'col-sm-2': order.finished}"><span class="visible-xs">Price</span><label>{{price(stock) | currency:company.currency }}</label></div>
+          <div class="col-sm-1" ng-show="!order.finished">
+            <i ng-hide="stock.received" class="icon-ok lead" style="cursor: pointer;" ng-click="mouseClicked(stock)" 
+                   ng-class="{'text-success' : stock.mouseOver || stock.received, 'muted': !stock.mouseOver}" 
+                   ng-mouseover="mouseOver(stock)" ng-mouseleave="mouseExit(stock)"></i>
+                <i ng-hide="!stock.received" class="icon-minus lead" style="cursor:pointer;" ng-click="mouseClickedRemove(stock)" 
+                   ng-mouseover="mouseOver(stock)" ng-mouseleave="mouseExit(stock)"
+                   ng-class="{'text-danger' : stock.mouseOver, 'muted': !stock.mouseOver}" ></i>     
+                <i class="icon-remove lead pull-right" style="height:4px; cursor: pointer;" ng-click="deleteStock(stock)"></i>  
+          </div>
+        </div>
+        
+        <div class="row totalbordered">
+          <div class="col-sm-8"><label>Total Price</label></div>
+          <div class="col-sm-4"><label>{{totalPriceAll(order) | currency:company.currency }}</label></div>
+        </div>
         <hr/>
         <button class="btn btn-danger" ng-click="remove(order)" ng-show="!order.finished">Not received (Delete)</button>
         <button class="btn btn-success pull-right" ng-click="finishOrder(order)" ng-show="!order.finished">Finish</button>
