@@ -5,19 +5,27 @@
     <hr/>
     
     <form class="form-horizontal" ng-submit="onSave('product', '/settings')" novalidate>
-    
-      <div class="col-md-5">
-      
-        <form-input label="Name" form-id="name" target="product" required/></form-input>
-        <form-input label="Description" form-id="description" target="product" /></form-input>
-        <form-input label="Unit" type="number" form-id="unit" fclass="input-mini" target="product" required/></form-input>
-        <form-input label="Unit type <br/><i class='muted'>(liters, kg, m3)</i>" form-id="unitName" fclass="input-small" target="product" required/></form-input>
+      <div>
+        <div class="col-md-5">
         
-        <input type="submit" class="btn btn-primary default-width"/>  
+          <form-input label="Name" form-id="name" target="product" required/></form-input>
+          <form-input label="Description" form-id="description" target="product" /></form-input>
+          <form-input label="Unit" form-id="unit" fclass="input-mini" target="product" required/></form-input>
+          <form-input label="Unit type <br/><i class='muted'>(liters, kg, m3)</i>" form-id="unitName" fclass="input-small" target="product" required/></form-input>
+          
+          <input type="submit" class="btn btn-primary default-width"/>  
+          
+        </div>
         
+        <div class="col-md-5">
+
+          <form-input label="Price to buy <br/><i class='muted'>(from suppliers)</i>" form-id="buyingPrice" target="product"/></form-input>
+          <form-input label="Price to sell <br/><i class='muted'>(to clients)</i>" form-id="sellingPrice" target="product"/></form-input>
+
+        </div>
       </div>
-      
     </form>
+
     
   </section>
 </div>

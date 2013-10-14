@@ -4,7 +4,7 @@
       <fieldset>
         <legend>Login</legend>
         <form name="loginForm" class="form-horizontal" role="form" ng-submit="onLogin()" novalidate>
-          <div class="alert alert-error" ng-show="error">{{error}}</div>
+          <div class="alert alert-danger" ng-show="error">{{error}}</div>
           <form-input label="Username" form-id="username" target="login"></form-input>
           <form-input type="password" label="Password" form-id="password" target="login"></form-input>
           <div class="form-group">

@@ -1,11 +1,14 @@
 package models;
 
-import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 import play.data.validation.Constraints.Required;
-
+import play.data.validation.ValidationError;
 import uk.co.panaxiom.playjongo.PlayJongo;
 import utils.DeletableModel;
+import utils.ErrorMessageBuilder;
+import utils.MinStringValidator.MinNumber;
 import utils.Model;
 
 public class Product implements Model, DeletableModel{
@@ -18,13 +21,16 @@ public class Product implements Model, DeletableModel{
 	private String name;
 	private String description;
 	@Required
-	private BigDecimal unit;
+	@MinNumber(0)
+	private String unit;
 	@Required
 	private String unitName;
 	
 	private long quantity = 0;
-	
-	private BigDecimal price;
+	@MinNumber(0)
+	private String sellingPrice;
+	@MinNumber(0)
+	private String buyingPrice;
 
     public void save(){
     	PlayJongo.getCollection(collectionName).save(this);
@@ -32,6 +38,8 @@ public class Product implements Model, DeletableModel{
     
     @Override
     public void update() {
+		System.out.println(this.sellingPrice.toString());
+
     	PlayJongo.getCollection(collectionName).save(this);
     }
     
@@ -40,7 +48,19 @@ public class Product implements Model, DeletableModel{
     	String query = String.format("{_id: '%s'}", _id);
     	PlayJongo.getCollection(collectionName).remove(query);    	
     }
-	
+    
+    public Map<String, List<ValidationError>> validate() {
+    	try{
+	    	if(Double.parseDouble(buyingPrice) > Double.parseDouble(sellingPrice)){
+				return ErrorMessageBuilder.getInstance().
+						addError("buyingPrice", "Price to buy must be lower than the price to sell").
+						addError("sellingPrice", "Price to sell must be higher than the price to buy").
+						build();
+	    	}
+    	}catch(NumberFormatException ne){}
+    	return null;
+    }
+    
 	public String get_id() {
 		return _id;
 	}
@@ -65,15 +85,23 @@ public class Product implements Model, DeletableModel{
 		this.description = description;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
+	public void setSellingPrice(String sellingPrice) {
+		this.sellingPrice = sellingPrice;
 	}
 	
-	public void setUnit(BigDecimal unit) {
+	public String getSellingPrice() {
+		return sellingPrice;
+	}
+	
+	public void setBuyingPrice(String buyingPrice) {
+		this.buyingPrice = buyingPrice;
+	}
+	
+	public String getBuyingPrice() {
+		return buyingPrice;
+	}
+	
+	public void setUnit(String unit) {
 		this.unit = unit;
 	}
 	
@@ -81,7 +109,7 @@ public class Product implements Model, DeletableModel{
 		this.unitName = unitName;
 	}
 	
-	public BigDecimal getUnit() {
+	public String getUnit() {
 		return unit;
 	}
 	

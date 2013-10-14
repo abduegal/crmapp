@@ -1,29 +1,16 @@
-define([ 'angular', 'app', 'directives/FormComponent', 'directives/spinner',
+define([ 'angular', 'emailpart/app', 'controllers/stock/config', 'controllers/Root',
          'services/errorHttpInterceptor', 'services/restangular', 'filters/highlight',
-         'controllers/Root', 'controllers/Home', 'controllers/Login', 'controllers/Settings',
-         
-         'controllers/settings/config', 'controllers/stock/config', 'controllers/sale/config'],
+         'emailpart/StockEmailCtrl'],
     function(angular) {
       'use strict';
       
-      return angular.module('crmApp')
+      return angular.module('emailApp')
       .config(function ($routeProvider) {
         $routeProvider
-          .when('/', {
-            templateUrl: 'views/login.html',
-            controller: 'LoginCtrl'
+          .when('/:id', {
+            templateUrl: 'views/stock/email.html',
+            controller: 'StockEmailCtrl'
           })
-          .when('/home', {
-            templateUrl: 'views/Home.html',
-            controller: 'HomeCtrl'
-          })
-          .when('/settings', {
-            templateUrl: 'views/Settings.html',
-            controller: 'SettingsCtrl'
-          })
-          .otherwise({
-            redirectTo: '/home'
-          });
       })
       .config(function ($httpProvider){
         var ajaxSpinner = function (data, headersGetter) {

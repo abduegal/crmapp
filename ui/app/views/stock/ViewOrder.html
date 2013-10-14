@@ -46,7 +46,7 @@
                 <i ng-hide="!stock.received" class="icon-minus lead" style="cursor:pointer;" ng-click="mouseClickedRemove(stock)" 
                    ng-mouseover="mouseOver(stock)" ng-mouseleave="mouseExit(stock)"
                    ng-class="{'text-danger' : stock.mouseOver, 'muted': !stock.mouseOver}" ></i>     
-                <i class="icon-remove lead pull-right" style="height:4px; cursor: pointer;" ng-click="deleteStock(stock)"></i>  
+                <i class="icon-remove lead pull-right" style="height:4px; cursor: pointer;" ng-click="deleteStock(stock, order)"></i>  
           </div>
         </div>
         

@@ -1,0 +1,47 @@
+<div class="span12 background">
+  <section>
+    <h2>{{title}}</h2>
+    <hr/>
+    
+    <div id="{{order._id}}" class="tab-pane">
+      <h3>Order # {{order.orderId}}</h3>
+      <label>Order date: <strong>{{order.date}}</strong></label>
+      <label>Supplier name: <strong>{{order.supplier.name}}</strong></label>
+    
+      <div class="row bordered hidden-xs">
+        <div class="col-sm-1 header"><label>#</label></div>
+        <div class="col-sm-3 header"><label>Product</label></div>
+        <div class="col-sm-3 header"><label>Expiration date</label></div>
+        <div class="col-sm-1 header"><label>Quantity</label></div>
+        <div class="col-sm-2 header"><label>Price per unit</label></div>
+        <div class="col-sm-1 header" ng-class="{'col-sm-2': order.finished}"><label>Price</label></div>
+        <div class="col-sm-1 header" ng-show="!order.finished"><label>Edit</label></div>
+      </div>
+      <div class="row bordered" ng-repeat="stock in order.items" ng-class="{'success': stock.mouseOver || stock.received}">
+        <div class="col-sm-1"><span class="visible-xs">#</span><label>{{stock.order}}</label></div>
+        <div class="col-sm-3"><span class="visible-xs">Product</span><label>{{getProduct(stock.productId).name}} ({{getProduct(stock.productId).unit}} {{getProduct(stock.productId).unitName}})</label></div>
+        <div class="col-sm-3"><span class="visible-xs">Expiration Date</span><label>{{stock.expirationDate}}</label></div>
+        <div class="col-sm-1"><span class="visible-xs">Quantity</span><label>{{stock.quantity}}</label></div>
+        <div class="col-sm-2"><span class="visible-xs">Price per unit</span><label>{{stock.priceperunit | currency:company.currency }}</label></div>
+        <div class="col-sm-1" ng-class="{'col-sm-2': order.finished}"><span class="visible-xs">Price</span><label>{{price(stock) | currency:company.currency }}</label></div>
+        <div class="col-sm-1" ng-show="!order.finished">
+          <i ng-hide="stock.received" class="icon-ok lead" style="cursor: pointer;" ng-click="mouseClicked(stock)" 
+                 ng-class="{'text-success' : stock.mouseOver || stock.received, 'muted': !stock.mouseOver}" 
+                 ng-mouseover="mouseOver(stock)" ng-mouseleave="mouseExit(stock)"></i>
+              <i ng-hide="!stock.received" class="icon-minus lead" style="cursor:pointer;" ng-click="mouseClickedRemove(stock)" 
+                 ng-mouseover="mouseOver(stock)" ng-mouseleave="mouseExit(stock)"
+                 ng-class="{'text-danger' : stock.mouseOver, 'muted': !stock.mouseOver}" ></i>     
+        </div>
+      </div>
+      
+      <div class="row totalbordered">
+        <div class="col-sm-8"><label>Total Price</label></div>
+        <div class="col-sm-4"><label>{{totalPriceAll(order) | currency:company.currency }}</label></div>
+      </div>
+    </div>
+            
+    <datalist id="products">
+        <option ng-repeat="product in products | orderBy:'name'" value="{{product.name}} - ({{product.unit}} {{product.unitName}})">
+    </datalist>
+  </section>
+</div>

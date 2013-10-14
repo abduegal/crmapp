@@ -1,10 +1,10 @@
 
 <div class="">
-  <section ng-init="onInit('email', 'Settings')">
+  <section ng-init="onInit(undefined, 'Settings')">
     <h2>{{action}} Email Settings</h2>
     <hr/>
     
-    <form class="form-horizontal" ng-submit="onSave('email', '/settings')" novalidate>
+    <form role="form" ng-submit="onSave('email', '/settings')" novalidate>
     
       <div class="col-md-9">
         

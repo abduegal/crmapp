@@ -12,6 +12,8 @@
               <th>Name</th>
               <th>Description</th>
               <th>Unit</th>
+              <th>Buying Price</th>
+              <th>Selling</th>
               <th style="width:70px; text-align: right;">Quantity</th>
               <th style="width:50px;"></th>
               <th style="width:50px;"></th>
@@ -22,6 +24,8 @@
               <td ng-bind-html-unsafe="product.name | highlight:search"></td>
               <td ng-bind-html-unsafe="product.description | highlight:search"></td>
               <td ng-bind-html-unsafe="product.unit + ' '+ product.unitName | highlight:search"></td>
+              <td ng-bind-html-unsafe="product.buyingPrice  | currency:company.currency | highlight:search"></td>
+              <td ng-bind-html-unsafe="product.sellingPrice  | currency:company.currency | highlight:search"></td>
               <td><span class="pull-right">{{product.quantity}}</span></td>
               <td><button class="btn btn-success btn-sm" ng-click="edit(product._id, '/settings/product')">Edit</button></td>
               <td><button class="btn btn-danger btn-sm" ng-click="deleteA(product, 'product')">Delete</button></td>

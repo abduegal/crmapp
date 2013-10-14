@@ -1,8 +1,6 @@
 package models;
 
-import java.math.BigDecimal;
-
-import play.data.validation.Constraints.Required;
+import utils.MinStringValidator.MinNumber;
 
 public class Stock{
 
@@ -10,10 +8,12 @@ public class Stock{
 	}
 	
 	private long order;
-	private long quantity;
+	@MinNumber(1)
+	private String quantity;
 	private String productId;
 	private String expirationDate;
-	private BigDecimal priceperunit;
+	@MinNumber(0)
+	private String priceperunit;
 	private boolean received;
 	
 	public long getOrder() {
@@ -22,10 +22,10 @@ public class Stock{
 	public void setOrder(long order) {
 		this.order = order;
 	}
-	public long getQuantity() {
+	public String getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(long quantity) {
+	public void setQuantity(String quantity) {
 		this.quantity = quantity;
 	}
 	public String getProductId() {
@@ -40,10 +40,10 @@ public class Stock{
 	public void setExpirationDate(String expirationDate) {
 		this.expirationDate = expirationDate;
 	}
-	public BigDecimal getPriceperunit() {
+	public String getPriceperunit() {
 		return priceperunit;
 	}
-	public void setPriceperunit(BigDecimal priceperunit) {
+	public void setPriceperunit(String priceperunit) {
 		this.priceperunit = priceperunit;
 	}
 	public boolean isReceived() {

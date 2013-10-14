@@ -13,6 +13,8 @@ public class Company implements Model{
 	private String client;
 	private String currency;
 	
+	private int orderCount;
+	
 	@Override
 	public void save() {
     	PlayJongo.getCollection(collectionName).save(this);
@@ -61,5 +63,13 @@ public class Company implements Model{
 	
 	public void setCurrency(String currency) {
 		this.currency = currency;
+	}
+	
+	public void setOrderCount(int orderCount) {
+		this.orderCount = orderCount;
+	}
+	
+	public int getOrderCount() {
+		return orderCount;
 	}
 }

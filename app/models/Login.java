@@ -1,8 +1,15 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import play.data.validation.Constraints.Required;
+import play.data.validation.ValidationError;
 import uk.co.panaxiom.playjongo.PlayJongo;
 import utils.BCrypt;
+import utils.ErrorMessageBuilder;
 import utils.Model;
 
 public class Login implements Model{
@@ -30,9 +37,12 @@ public class Login implements Model{
     	PlayJongo.getCollection(collectionName).save(this);
     }
     
-    public String validate() {
-        if(!authenticate(username, password)) {
-            return "Invalid username or password";
+    public Map<String, List<ValidationError>> validate() {
+    	if(!authenticate(username, password)) {
+    		return ErrorMessageBuilder.getInstance().
+					addError("username", "Invalid username or password").
+					addError("password", "Invalid username or password").
+					build();
         }
         return null;
     }

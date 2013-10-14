@@ -4,7 +4,6 @@ import static controllers.Application.AllowOrigin;
 import models.ChangePwModel;
 import models.Login;
 
-import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;

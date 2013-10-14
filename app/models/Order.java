@@ -129,6 +129,4 @@ public class Order implements Model, DeletableModel{
 		return finished;
 	}
 	
-
-
 }

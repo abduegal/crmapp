@@ -31,9 +31,11 @@ define([ 'angular'], function(angular) {
         };
 
         $scope.onInit = function(collectionName, menuName){
-          Restangular.one(collectionName, $routeParams.id).get().then(function(data){
-            $scope[collectionName] = data;
-          });
+          if(collectionName){
+            Restangular.one(collectionName, $routeParams.id).get().then(function(data){
+              $scope[collectionName] = data;
+            });
+          }
 
           $scope.$emit('event:menuLinkActivate', menuName);
         };

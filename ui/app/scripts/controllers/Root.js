@@ -21,6 +21,7 @@ define([ 'angular', 'services/restangular'], function(angular) {
          */
         $scope.$on('event:loginPageEntered', function(event, value){
           $scope.navbar = value;
+          $scope.load();
         });
         
         /**
@@ -68,7 +69,9 @@ define([ 'angular', 'services/restangular'], function(angular) {
             _id : '1',
             name : 'App name',
             product : 'Product',
-            client : 'Client'
+            client : 'Client',
+            
+            local: true
         };
         
         /**
@@ -79,30 +82,21 @@ define([ 'angular', 'services/restangular'], function(angular) {
             body: ''
         };
         
-        /**
-         * Retrieving company object
-         */
-        Restangular.one('company', '1').get().then(function(data){
-          if(!isEmptyObject(data)){
+        $scope.load = function(){
+          
+          /**
+           * Retrieving company object
+           */
+          Restangular.one('company', '1').get().then(function(data){
             $scope.company = data;
-          }
-        });
-        
-        /**
-         * Retrieving company object
-         */
-        Restangular.one('email', '1').get().then(function(data){
-          if(!isEmptyObject(data)){
+          });
+          
+          /**
+           * Retrieving company object
+           */
+          Restangular.one('email', '1').get().then(function(data){
             $scope.email = data;
-          }
-        });
-        
-        function isEmptyObject(obj) {
-          var name;
-          for (name in obj) {
-              return false;
-          }
-          return true;
+          });
         };
         
       });

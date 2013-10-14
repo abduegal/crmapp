@@ -13,9 +13,9 @@ define([ 'angular', 'lodash'], function(angular, _) {
         text = text.toString();
         search = search.toString();
         if (caseSensitive) {
-          return text.split(search).join('<strong>' + search + '</strong>');
+          return text.split(search).join('<strong><u>' + search + '</u></strong>');
         } else {
-          return text.replace(new RegExp(search, 'gi'), '<strong>$&</strong>');
+          return text.replace(new RegExp(search, 'gi'), '<strong><u>$&</u></strong>');
         }
       } else {
         return text;

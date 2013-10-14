@@ -34,7 +34,7 @@ define([ 'angular', 'services/restangular'], function(angular) {
         Restangular.all('login').post($scope.login).then(function() {
           $scope.redirect();
         },function(output) {
-          $scope.error = output.data[''][0];
+          $scope.errors = output.data;
         });
       };
       

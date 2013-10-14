@@ -14,13 +14,18 @@
             <div class="col-md-4">  
               <form-input label="Date" type="date" form-id="date" target="order" required></form-input>
             </div>
-            <div class="col-md-4" >
-              <div class="form-group" ng-class="{error: errors.supplier}">
-                <label class="control-label">Supplier <span class="text-danger"><strong> *</strong></span></label>
-                <select ng-model="order.supplier._id" class="form-control">
-                  <option ng-repeat="supplier in suppliers" value="{{supplier._id}}">{{supplier.name}}</option>
-                </select>
-                <span class="help-inline">{{errors.supplier.0}}</span>
+            <div class="col-md-4" style="padding-top: 14px;">  
+              <div class="form-group" ng-class="{error: errors.date}">
+                <label class="col-lg-4 control-label" for="supplier">
+                  Supplier
+                  <span class="text-danger"><strong> *</strong></span>
+                </label>
+                <div class="col-lg-8">
+                  <select ng-model="order.supplier._id" class="form-control">
+                    <option ng-repeat="supplier in suppliers" value="{{supplier._id}}">{{supplier.name}}</option>
+                  </select>
+                  <span class="help-inline">{{errors.supplier.0}}</span>
+                </div>
               </div>
             </div>
         </div>
@@ -46,11 +51,11 @@
           </div>
           <div class="col-sm-1">
             <label class="control-label">Quantity</label>
-            <input type="number" ng-model="stock.quantity" class="form-control" min="1"/>
+            <input ng-model="stock.quantity" class="form-control" min="1"/>
           </div>
           <div class="col-sm-2">
             <label class="control-label">Price per unit</label>
-            <input type="number" ng-model="stock.priceperunit" class="form-control" step="0.01" />
+            <input ng-model="stock.priceperunit" class="form-control" step="0.01" />
             <p class="text-danger">{{errors.priceperunit}}</p>
           </div>
           <div class="col-sm-1">

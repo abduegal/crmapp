@@ -1,8 +1,8 @@
 'use strict';
 define([ 'angular'], function(angular) {
 
-    angular.module('crmApp').controller('ViewOrderCtrl', 
-      function ($scope, Restangular, $location) {
+    angular.module('emailApp').controller('StockEmailCtrl', 
+      function ($scope, Restangular, $location, $routeParams) {
 
         /* - Assignments ------------------------------- */
         $scope.title = 'View orders';
@@ -26,17 +26,6 @@ define([ 'angular'], function(angular) {
           delete stock.received;
         };
         
-        /**
-         * Red X button pressed
-         */
-        $scope.deleteStock = function(stock, order){
-          order.items.splice(order.items.indexOf(stock), 1);
-          for(var i = 0; i < order.items.length; i++){
-            order.items[i].order = i+1;            
-          }
-          $scope.update(order, false);
-        };
-        
         $scope.setAllItemsToReceived = function(order){
           _.forEach(order.items, function(item){
             item.received = true;
@@ -54,16 +43,6 @@ define([ 'angular'], function(angular) {
           return (count === order.items.length);
         };
         
-        $scope.finishOrder = function(order){
-          order.finished = true;
-          _.forEach(order.items, function(item){
-            var product = $scope.getProduct(item.productId);
-            product.quantity += item.quantity;
-            $scope.update(product, false);
-          });
-          $scope.update(order, true);
-        };
-        
         $scope.update = function(item, redirect){
           item.put().then(function(){
             if(redirect){
@@ -74,16 +53,7 @@ define([ 'angular'], function(angular) {
             $scope.errors = output.data;
           });
         };
-        
-        $scope.remove = function(item){
-          var c = confirm('Are you sure?');
-          if(c){
-            item.remove().then(function(){
-              $scope.orders = _.without($scope.orders, item);
-            });
-          }
-        }
-        
+
         /* - methods -------------------------------- */
 
         /**
@@ -137,11 +107,6 @@ define([ 'angular'], function(angular) {
           }
         };
         
-        $scope.unactivateTabPane = function(){
-          $('.tab-pane').removeClass('active');
-          $('.nav-tabs li').removeClass('active');
-        };
-        
         /*
          * REST CALLS
          */
@@ -150,11 +115,9 @@ define([ 'angular'], function(angular) {
           $scope.products = data;
         });
         
-        Restangular.all('order').getList().then(function(data){
-          $scope.orders = data;
-          for(var i = 0; i < $scope.orders.length; i++){
-            $scope.addSupplierToOrder($scope.orders[i]);
-          }
+        Restangular.one('order', $routeParams.id).get().then(function(data){
+          $scope.order = data;
+          addSupplierToOrder($scope.order);
         });
         
         $scope.addSupplierToOrder = function(order){
@@ -164,7 +127,7 @@ define([ 'angular'], function(angular) {
         };
         
         /**
-         * Activate Stock menu
+         * Activate Settings menu
          */
         $scope.$emit('event:menuLinkActivate', 'Stock');
         

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="styles/style.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="crm-email">
+  <body>
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -25,26 +25,41 @@
       <script src="components/json3/lib/json3.min.js"></script>
     <![endif]-->
     
-    <div id="root">
-		
-		<!-- The page content -->
-	    <section class="container" >
-            <div class="alert alert-error" ng-show="globalError" style="display: none;" ng-cloak>{{globalError}}</div>
-            <div class="row-fluid" ng-view></div>
-        </section>
-	    
-	    <!-- Footer content -->
-	    <footer></footer>
-	</div>
-    <script src="components/jquery/jquery.js"></script>
-    <script src="components/jquery/bootstrap.js"></script>
+    <div id="root" ng-controller="RootCtrl">
+        <div id="spinner-background" ng-show="loading"></div>
+        <span id="spinner" ng-show="loading" us-spinner></span>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-      var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-      s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
+        <div class="navbar navbar-default navbar-fixed-top" ng-hide="navbar" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">{{company.name}}</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- The page content -->
+        <section class="container" >
+            <div class="alert alert-danger" ng-show="globalError" style="display: none;" ng-cloak>{{globalError}}</div>
+            <div class="row" ng-view></div>
+        </section>
+        
+        <!-- Footer content -->
+        <footer></footer>
+    </div>
+  
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  
+    <script src="components/jquery/jquery.js"></script>
+    <script src="components/jquery/bootstrap.min.js"></script>
+
+    <script data-main="scripts/emailpart" src="components/requirejs/require.js"></script>
+
+    <!-- endbuild -->
   </body>
 </html>

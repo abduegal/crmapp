@@ -25,7 +25,7 @@
       <script src="components/json3/lib/json3.min.js"></script>
     <![endif]-->
     
-    <div id="root" ng-controller="RootCtrl">
+    <div id="root" ng-controller="RootCtrl" ng-init="load()">
         <div id="spinner-background" ng-show="loading"></div>
         <span id="spinner" ng-show="loading" us-spinner></span>
         <!-- Header files -> menu -->
@@ -33,26 +33,20 @@
 		
 		<!-- The page content -->
 	    <section class="container" >
-            <div class="alert alert-error" ng-show="globalError" style="display: none;" ng-cloak>{{globalError}}</div>
+            <div class="alert alert-danger" ng-show="globalError" style="display: none;" ng-cloak>{{globalError}}</div>
             <div class="row" ng-view></div>
         </section>
-        
-                
 	    
 	    <!-- Footer content -->
 	    <footer></footer>
 	</div>
+  
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  
     <script src="components/jquery/jquery.js"></script>
     <script src="components/jquery/bootstrap.min.js"></script>
 
     <script data-main="scripts/main" src="components/requirejs/require.js"></script>
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-      var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-      s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
+    <!-- endbuild -->
   </body>
 </html>

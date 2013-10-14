@@ -45,11 +45,11 @@ define(['app', 'config', 'angular'], function(App, config, angular) {
     });
     
     it('should throw an error, when wrong credentials', function(){
-    	var errorMessage = "Invalid username or password";
-      $httpBackend.expectPOST('http://localhost:9000/login', scope.login).respond(400, '{"":["'+errorMessage+'"]}');
+    	var errorMessage = {"username":["Invalidusernameorpassword"],"password":["Invalidusernameorpassword"]};
+      $httpBackend.expectPOST('http://localhost:9000/login', scope.login).respond(400, errorMessage);
     	scope.onLogin();
       $httpBackend.flush();
-      expect(scope.error).toBe(errorMessage);
+      expect(scope.errors).toBe(errorMessage);
     });
     
   });

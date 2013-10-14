@@ -12,27 +12,21 @@ define(['app', 'config'], function(App, config) {
     var productData = 
       [{
         _id: 1,
-        name: 'test',
-        description: 'description',
-        unit: 'unit',
-        unitName: 'unitName',
-        quantity: 0,
-        price: 1000
       }];
     
     var supplierData = 
       [{
         _id: 1,
-        name: 'test',
-        description: 'description',
-        telephone: 'telephone',
-        email: 'email'
       }];
     
     var orderData = 
       [{
         
       }];
+    
+    var company = {
+        orderCount: 0,
+    }
     
     // Initialize the controller and a mock scope
     beforeEach(inject(function ($controller, $rootScope, _Restangular_, _$httpBackend_) {
@@ -45,6 +39,7 @@ define(['app', 'config'], function(App, config) {
       PlaceOrderCtrl = $controller('PlaceOrderCtrl', {
         $scope: scope
       });
+      scope.company = {};
       $httpBackend.flush();
     }));
     
@@ -54,8 +49,8 @@ define(['app', 'config'], function(App, config) {
     });
   
     it('should have the products object tobe defined', function () {
-      expect(scope.suppliers).toBeDefined();
-      expect(scope.suppliers[0]._id).toBe(productData[0]._id);
+      expect(scope.products).toBeDefined();
+      expect(scope.products[0]._id).toBe(productData[0]._id);
     });
     
 

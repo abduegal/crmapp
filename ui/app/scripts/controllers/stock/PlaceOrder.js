@@ -29,6 +29,15 @@ define([ 'angular'], function(angular) {
           });
         });
         
+        $scope.$watch('stock.productId', function(newValue, oldValue){
+          var product = _.find($scope.products, function(product) {
+            return (product._id == newValue);
+          });
+          if(product && product.buyingPrice){
+            $scope.stock.priceperunit = parseFloat(product.buyingPrice);
+          }
+        });
+        
         $scope.mouseOver = function(stock){
           stock.mouseOver = "true";
         };
@@ -51,6 +60,9 @@ define([ 'angular'], function(angular) {
           $scope.order.supplierId = $scope.order.supplier._id;
           $scope.order.email = $scope.order.supplier.email;
           Restangular.all('order').post($scope.order).then(function(){
+            if($scope.company.put){
+              $scope.company.put();
+            }
             $location.path('/settings');
           },function(output){
             $scope.buttonDisabled = "";
@@ -188,7 +200,8 @@ define([ 'angular'], function(angular) {
         
         Restangular.all('order').getList().then(function(data){
           $scope.orders = data;
-          $scope.order.orderId = addLeadingZeros($scope.orders.length+1, 4);
+          var orderId = ++$scope.company.orderCount;
+          $scope.order.orderId = addLeadingZeros(orderId, 4);
         });
         
         function addLeadingZeros (n, length)
@@ -202,7 +215,7 @@ define([ 'angular'], function(angular) {
         }
         
         /**
-         * Activate Settings menu
+         * Activate Stock menu
          */
         $scope.$emit('event:menuLinkActivate', 'Stock');
         
