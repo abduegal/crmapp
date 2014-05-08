@@ -57,13 +57,13 @@ public class Order implements Model, DeletableModel{
     	Email mail = PlayJongo.getCollection(Email.collectionName).findOne(query).as(Email.class);
     	
     	Map<String, String> data = new HashMap<String, String>();
-		data.put("From", "crm@proitsoft.com");
+		data.put("From", "****");
 		data.put("To", email);
 		data.put("Subject", mail.getTitle());
 		data.put("TextBody", mail.getBody().replace("{{LINK}}", Email.MAIL_BASE_URL + _id));
 		
 		int response = HttpRequest.post("http://api.postmarkapp.com/email")
-			.header("X-Postmark-Server-Token", "7f210fe0-60d6-4f76-b661-4c07fc572f5f")
+			.header("X-Postmark-Server-Token", "***")
 			.accept("application/json")
 			.contentType("application/json; charset=utf-8")
 			.trustAllCerts()
